@@ -33,14 +33,66 @@ PipeBit works on a Sender / Receiver model using Lists for both cases. Currently
 
 This is the Object that creates the pipeline and takes in 3 parameters: the name the pipeline will have, the size for the packet of data it will transfer, and its override option. This last option is a Boolean that can be set to True in the case that if the pipeline already exists, we override it (change size and clean its previous buffer value). If set to False it will keep its previous buffer value until changed.
 
+**send(data: List)**
+
+This method of the object sends a List of the specified size of the packet.
+
+**open_connection()**
+
+Opens connection with the Pipeline.
+
+**close_connection()**
+
+Closes connection with the Pipeline.
+
 ## BitPackReceiver
 
 **BitPackReceiver(name: str)**
 
 This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically.
 
+**receive()**
+
+This method of the object receives the data from the Pipeline and returns it as a List.
+
+**open_connection()**
+
+Opens connection with the Pipeline.
+
+**close_connection()**
+
+Closes connection with the Pipeline.
+
 Sender / Receiver Example
 ==========
+
+For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also use a 'past' value in **receiver.py** so we don't get the same value from the pipeline indefinitely.
+
+The content of the files is the following:
+
+-sender.py
+
+```python
+import pipebit
+import time
+
+# Define Sender with name 'data_pipe', size 5 and no Override
+sender = pipebit.BitPackSender("data_pipe",5,False)
+
+# Open Sender Connection with the Pipeline
+sender.open_connection()
+
+# Iterate from 0 to 9 and send the values from i, i + 1 ... i + 4, having an interruption interval between each of 1 second
+for i in range(10):
+    sender.send([i,i+1,i+2,i+3,i+4])
+    time.sleep(1.0)
+    
+# Close Sender Connection with the Pipeline
+sender.close_connection()
+
+''')
+```
+
 
 
 
