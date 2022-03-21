@@ -1,10 +1,18 @@
+# -------------------------------
+# PipeBit
+# 'setup.py'
+# Author: Juan Carlos Juárez.
+# Licensed under MPL 2.0.
+# All rights reserved.
+# -------------------------------
+
 from setuptools import setup, find_packages
 import codecs
 import os
 
 VERSION = '0.0.1'
 DESCRIPTION = 'PipeBit'
-LONG_DESCRIPTION = 'PipeBit is a Pipeline Managment System for Local Data Pipelines.'
+LONG_DESCRIPTION = 'PipeBit is a Quick Pipeline Management System for Local Data Pipelines.'
 
 # Setting up
 setup(

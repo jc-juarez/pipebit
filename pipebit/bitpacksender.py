@@ -1,3 +1,11 @@
+# -------------------------------
+# PipeBit
+# 'bitpacksender.py'
+# Author: Juan Carlos Juárez.
+# Licensed under MPL 2.0.
+# All rights reserved.
+# -------------------------------
+
 from xmlrpc.client import Boolean
 import pipebit.initial_config as initial_config
 import sys
