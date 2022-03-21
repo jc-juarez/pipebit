@@ -8,7 +8,7 @@ LONG_DESCRIPTION = 'PipeBit is a Pipeline Managment System for Local Data Pipeli
 
 # Setting up
 setup(
-    name="pipebit-test1",
+    name="pipebit",
     version=VERSION,
     author="Juan Carlos Juárez",
     author_email="<jc.juarezgarcia@outlook.com>",
