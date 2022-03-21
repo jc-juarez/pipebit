@@ -115,6 +115,6 @@ while(True):
         print(data)
         prev_data = data
         
-# Closes Receiver Connection with the Pipeline
+# Closes Receiver Connection with the Pipeline (Unreachable)
 receiver.close_connection()
 ```
