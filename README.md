@@ -78,7 +78,7 @@ The content of the files is the following:
 import pipebit
 import time
 
-# Defines Sender with that creates a Pipeline with name 'data_pipe', size 5 and no Override
+# Defines Sender that creates a Pipeline with name 'data_pipe', size 5 and no Override
 sender = pipebit.BitPackSender("data_pipe",5,False)
 
 # Opens Sender Connection with the Pipeline
