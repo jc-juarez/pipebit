@@ -31,13 +31,13 @@ PipeBit works on a Sender / Receiver model using Lists for both cases. Currently
 
 **BitPackSender(name: str, size: int, override: boolean)**
 
-This Object takes in 3 parameters: the name the pipeline will have, the size for the packet of data it will transfer, and its override option. This last option is a Boolean that can be set to True in the case that if the pipeline already exists, we override it (change size and clean its previous buffer value). If set to False it will keep its previous buffer value until changed.
+This is the Object that creates the pipeline and takes in 3 parameters: the name the pipeline will have, the size for the packet of data it will transfer, and its override option. This last option is a Boolean that can be set to True in the case that if the pipeline already exists, we override it (change size and clean its previous buffer value). If set to False it will keep its previous buffer value until changed.
 
 ## BitPackReceiver
 
 **BitPackSender(name: str)**
 
-This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created. No need to specify anything more, if the pipeline exists it will link it automatically.
+This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically.
 
 Sender / Receiver Example
 ==========
