@@ -68,7 +68,7 @@ Sender / Receiver Example
 
 For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also use a 'previous' value in **receiver.py** so we don't get the same value from the pipeline indefinitely.
 
-Run both files parallelly, but first run the **sender.py** file so it creates the Pipeline (it will run in about 10 seconds to finish the for loop, run the other file before this time so you can appreciate the result) and then run the **receiver.py** file so it can extract the data coming from the Pipeline.
+Run both files parallelly, but first run the **sender.py** file so it creates the Pipeline (it will run in about 15 seconds to finish the for loop, run the other file before this time so you can appreciate the result) and then run the **receiver.py** file so it can extract the data coming from the Pipeline.
 
 The content of the files is the following:
 
@@ -84,10 +84,10 @@ sender = pipebit.BitPackSender("data_pipe",5,False)
 # Opens Sender Connection with the Pipeline
 sender.open_connection()
 
-# Iterates from 0 to 9 and send the values from i, i + 1 ... i + 4, having an interruption interval between each of 1 second
-for i in range(10):
+# Iterates from 0 to 29 and send the values from i, i + 1 ... i + 4, having an interruption interval between each of half a second
+for i in range(30):
     sender.send([i,i+1,i+2,i+3,i+4])
-    time.sleep(1.0)
+    time.sleep(0.5)
     
 # Closes Sender Connection with the Pipeline
 sender.close_connection()
