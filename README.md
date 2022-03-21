@@ -76,18 +76,18 @@ The content of the files is the following:
 import pipebit
 import time
 
-# Define Sender with that created a Pipeline with name 'data_pipe', size 5 and no Override
+# Defines Sender with that created a Pipeline with name 'data_pipe', size 5 and no Override
 sender = pipebit.BitPackSender("data_pipe",5,False)
 
-# Open Sender Connection with the Pipeline
+# Opens Sender Connection with the Pipeline
 sender.open_connection()
 
-# Iterate from 0 to 9 and send the values from i, i + 1 ... i + 4, having an interruption interval between each of 1 second
+# Iterates from 0 to 9 and send the values from i, i + 1 ... i + 4, having an interruption interval between each of 1 second
 for i in range(10):
     sender.send([i,i+1,i+2,i+3,i+4])
     time.sleep(1.0)
     
-# Close Sender Connection with the Pipeline
+# Closes Sender Connection with the Pipeline
 sender.close_connection()
 ```
 
@@ -96,7 +96,7 @@ sender.close_connection()
 ```python
 import pipebit
 
-# Define Receiver that connects with the Pipeline named 'data_pipe'
+# Defines Receiver that connects with the Pipeline named 'data_pipe'
 receiver = pipebit.BitPackReceiver("data_pipe")
 
 # Previous Data
@@ -105,10 +105,10 @@ prev_data = []
 # Current Data
 data = []
 
-# Open Receiver Connection with the Pipeline
+# Opens Receiver Connection with the Pipeline
 receiver.open_connection()
 
-# Infinite Loop to listen for incoming data from the pipeline and print it out to the console
+# Infinite Loop that listens for incoming data from the pipeline and print it out to the console
 while(True):
     data = receiver.receive()
     if(data != prev_data):
