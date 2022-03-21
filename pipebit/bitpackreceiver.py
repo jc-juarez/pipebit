@@ -60,6 +60,4 @@ class BitPackReceiver:
                 curr = line.decode("utf-8")
         res = curr.split("_%_")
         res.pop()
-        return res
-
-                
+        return res          
