@@ -25,4 +25,8 @@ pip install junipercs
 How to Run PipeBit
 ==========
 
+PipeBit works on a Sender - Receiver model using Lists for both cases. Currently, PipeBit supports one Pipeline Model: **BitPack**. This Model allows to transfer a data packet with a predetermined packet size. 
+
+## BitPack
+
 
