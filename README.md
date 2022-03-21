@@ -120,3 +120,32 @@ while(True):
 # Closes Receiver Connection with the Pipeline (Unreachable)
 receiver.close_connection()
 ```
+
+Here is another example of **sender.py** using Tkinter to send the amount of times a Button is pressed, using the same **receiver.py** file and the same pipeline:
+
+```python
+from tkinter import *
+import pipebit
+
+# Define iterator starting at 1
+i = 1
+
+# Sends the Data to the Pipeline everytime the Button is pressed
+def pressed_button(event):
+    global i
+    sender.open_connection()
+    sender.send(["Pressed the button {0} times!".format(i)])
+    i += 1
+    sender.close_connection()  
+
+# Create Button
+widget = Button(None, text = "Send Data")
+widget.pack()
+widget.bind('<Button-1>', pressed_button)
+
+# Create Clicks Pipeline
+sender = pipebit.BitPackSender("data_pipe",1,True)
+
+# Tkinter Mainloop
+widget.mainloop()
+```
