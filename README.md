@@ -68,6 +68,8 @@ Sender / Receiver Example
 
 For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also use a 'previous' value in **receiver.py** so we don't get the same value from the pipeline indefinitely.
 
+Run both files parallelly, but first run the **sender.py** file so it creates the Pipeline (it will run in about 10 seconds to finish the for loop, run the other file before this time so you can appreciate the result) and then run the **receiver.py** file so it can extract the data coming from the Pipeline.
+
 The content of the files is the following:
 
 - sender.py
