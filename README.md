@@ -35,7 +35,7 @@ This is the Object that creates the pipeline and takes in 3 parameters: the name
 
 ## BitPackReceiver
 
-**BitPackSender(name: str)**
+**BitPackReceiver(name: str)**
 
 This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically.
 
