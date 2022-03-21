@@ -110,7 +110,7 @@ data = []
 # Opens Receiver Connection with the Pipeline
 receiver.open_connection()
 
-# Infinite Loop that listens for incoming data from the pipeline and print it out to the console
+# Infinite Loop that listens for incoming data from the pipeline and prints it out to the console
 while(True):
     data = receiver.receive()
     if(data != prev_data):
