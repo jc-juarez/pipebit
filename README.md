@@ -78,13 +78,13 @@ The content of the files is the following:
 import pipebit
 import time
 
-# Defines Sender with that created a Pipeline with name 'data_pipe', size 5 and no Override
+# Defines Sender with that creates a Pipeline with name 'data_pipe', size 5 and no Override
 sender = pipebit.BitPackSender("data_pipe",5,False)
 
 # Opens Sender Connection with the Pipeline
 sender.open_connection()
 
-# Iterates from 0 to 29 and send the values from i, i + 1 ... i + 4, having an interruption interval between each of half a second
+# Iterates from 0 to 29 and sends the values from i, i + 1 ... i + 4 (size of 5), having an interruption interval between each of half a second
 for i in range(30):
     sender.send([i,i+1,i+2,i+3,i+4])
     time.sleep(0.5)
