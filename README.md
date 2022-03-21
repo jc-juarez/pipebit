@@ -13,13 +13,13 @@ Make sure you have Python 3.6+ installed and run the following command in your t
 For MacOS and GNU/Linux:
 
 ```python
-pip3 install junipercs
+pip3 install pipebit
 ```
 
 For Windows:
 
 ```python
-pip install junipercs
+pip install pipebit
 ```
 
 How to Run PipeBit
