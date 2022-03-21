@@ -66,17 +66,17 @@ Closes connection with the Pipeline.
 Sender / Receiver Example
 ==========
 
-For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also use a 'past' value in **receiver.py** so we don't get the same value from the pipeline indefinitely.
+For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also use a 'previous' value in **receiver.py** so we don't get the same value from the pipeline indefinitely.
 
 The content of the files is the following:
 
--sender.py
+- sender.py
 
 ```python
 import pipebit
 import time
 
-# Define Sender with name 'data_pipe', size 5 and no Override
+# Define Sender with that created a Pipeline with name 'data_pipe', size 5 and no Override
 sender = pipebit.BitPackSender("data_pipe",5,False)
 
 # Open Sender Connection with the Pipeline
@@ -93,9 +93,31 @@ sender.close_connection()
 ''')
 ```
 
+- receiver.py
 
+```python
+import pipebit
 
+# Define Receiver that connects with the Pipeline named 'data_pipe'
+receiver = pipebit.BitPackReceiver("data_pipe")
 
+# Previous Data
+prev_data = []
 
+# Current Data
+data = []
 
+# Open Receiver Connection with the Pipeline
+receiver.open_connection()
 
+# Infinite Loop to listen for incoming data from the pipeline and print it to the console
+while(True):
+    data = receiver.receive()
+    if(data != prev_data):
+        print(data)
+        prev_data = data
+        
+# Closes Receiver Connection with the Pipeline
+receiver.close_connection()
+''')
+```
