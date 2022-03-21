@@ -121,7 +121,7 @@ while(True):
 receiver.close_connection()
 ```
 
-Here is another example of **sender.py** using Tkinter to send the amount of times a Button is pressed, using the same **receiver.py** file and the same pipeline:
+Here is another example of **sender.py** using Tkinter to send the amount of times a Button is pressed, using the same **receiver.py** file as before and the same pipeline:
 
 ```python
 from tkinter import *
