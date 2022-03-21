@@ -89,8 +89,6 @@ for i in range(10):
     
 # Close Sender Connection with the Pipeline
 sender.close_connection()
-
-''')
 ```
 
 - receiver.py
@@ -119,5 +117,4 @@ while(True):
         
 # Closes Receiver Connection with the Pipeline
 receiver.close_connection()
-''')
 ```
