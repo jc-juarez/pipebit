@@ -1,6 +1,6 @@
 # PipeBit 🛸
 
-PipeBit is a Quick Pipeline Management System for Local Data Pipelines in Python without having to reference any pipeline paths.
+PipeBit is a Quick Pipeline Deployment System for Local Data Pipelines in Python without having to reference any pipeline paths.
 
 How to Install PipeBit
 ==========
