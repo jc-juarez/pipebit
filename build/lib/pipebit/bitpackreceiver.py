@@ -98,19 +98,19 @@ class BitPackReceiver:
     # Packet Catcher Thread
     def packet_catcher(self,args):
         while True:
-            try:
-                with open(self.pipeline_path, "rb",encoding="utf-8",errors='ignore') as f:
-                    number_lines = sum(bl.count("\n") for bl in blocks(f)) + 1
+            if(True):
+                with open(self.pipeline_path, "rb") as binary_file:
+                    file_lines = binary_file.readlines()
+                    number_lines = len(file_lines)
                     if(number_lines >= 3):
-                        packet_transaction = ""
-                        for line in f:
-                            packet_transaction = line.decode("utf-8").rstrip('\n')
-                            break
+                        packet_transaction = file_lines[0].decode("utf-8").rstrip('\n')
                         if(packet_transaction != self.current_transaction):
                             self.current_transaction = packet_transaction
-                            self.packet_queue.append(f.readlines()[1])
-            except:
-                print("\n<#> PipeBit Error: Error on Catching Data from Pipeline '{0}'.".format(self.pipeline_name))
+                            print("Data Received!")
+                            self.packet_queue.append(file_lines[1])
+                            print("not here")
+            #except:
+                #print("\n<#> PipeBit Error: Error on Catching Data from Pipeline '{0}'.".format(self.pipeline_name))
 
 
     # Safe Dispatcher Function. All packets that make it uo to here are already safely received
