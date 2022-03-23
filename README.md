@@ -2,8 +2,6 @@
 
 PipeBit is a Quick Pipeline Deployment System for Local Data Pipelines based on Multi-Threading in Python without having to reference any pipeline paths.
 
-**Please note that this system is not finished yet and may have unexpected behaviors in situations with large data sets and when fast transmission speeds are needed. Once I finish this period's exams I will continue with the development of the overall system.**
-
 How to Install PipeBit
 ==========
 
@@ -51,7 +49,7 @@ Closes connection with the Pipeline.
 
 **BitPackReceiver(name: str)**
 
-This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically. The Receiver Object works on a Multi-Thread Object, so it will begin to cache the incoming data from the pipeline since its declaration inside its packet cache memory.
+This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically. The Receiver Object works on a Multi-Thread Model, so it will begin to cache the incoming data from the pipeline since its declaration inside its packet cache memory.
 
 **receive()**
 
