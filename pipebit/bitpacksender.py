@@ -9,6 +9,8 @@
 from xmlrpc.client import Boolean
 import pipebit.initial_config as initial_config
 import sys
+import random
+import string
 
 class BitPackSender:
 
@@ -47,8 +49,12 @@ class BitPackSender:
         if(not self.pipeline_connection):
             print("\n<#> PipeBit Error: Pipeline Connection is closed.")
             return
+
+        # Generate 16-character Transaction    
+        transaction = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(16))
+        binary_transaction = bytes(transaction + "\n", 'utf-8')
         with open(self.pipeline_path, "wb") as binary_file:
-            pass
+            binary_file.write(binary_transaction)
         for arg in data:
             arg = str(arg) + self.pipeline_data_delimeter
             binary_data = bytes(arg, 'utf-8')

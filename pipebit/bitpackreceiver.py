@@ -57,10 +57,16 @@ class BitPackReceiver:
         curr = ""
         is_size = False
         while(not is_size):
+            lines = []
             with open(self.pipeline_path, "rb") as binary_file:
                 for line in binary_file:
-                    curr = line.decode("utf-8")
-            res = curr.split("_%_")
-            res.pop()
+                    curr_line = line.decode("utf-8").rstrip('\n')
+                    lines.append(curr_line)
+            res = []
+            if(len(lines) == 2):
+                transaction = lines[0]
+                packet = lines[1]
+                res = packet.split("_%_")
+                res.pop()
             if(len(res) == self.pipeline_packet_size): is_size = True
         return res          
