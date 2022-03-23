@@ -27,6 +27,8 @@ How to Run PipeBit
 
 PipeBit works on a Sender / Receiver model using Lists for both cases. Currently, PipeBit supports one Pipeline Model: **BitPack**. This Model allows to transfer a data packet with a predetermined packet size that refreshes the pipeline buffer every time a new packet is sent. 
 
+PipeBit can be used as a Multi-Pipeline system, having one Sender serving data over a specific Pipeline and having multiple Receivers extracting data from such Pipeline, allowing to create interesting data  transfer architectures.
+
 ## BitPackSender
 
 **BitPackSender(name: str, size: int, override: boolean)**
