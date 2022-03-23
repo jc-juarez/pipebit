@@ -1,6 +1,6 @@
 # PipeBit 🛸
 
-PipeBit is a Quick Pipeline Deployment System for Local Data Pipelines in Python without having to reference any pipeline paths.
+PipeBit is a Quick Pipeline Deployment System for Local Data Pipelines based on Multi-Threading in Python without having to reference any pipeline paths.
 
 **Please note that this system is not finished yet and may have unexpected behaviors in situations with large data sets and when fast transmission speeds are needed. Once I finish this period's exams I will continue with the development of the overall system.**
 
@@ -37,7 +37,7 @@ This is the Object that creates the pipeline and takes in 3 parameters: the name
 
 **send(data: List)**
 
-This method of the object sends a List of the specified size of the packet.
+This method releases a single thread that sends a List of the specified size of the packet.
 
 **open_connection()**
 
@@ -51,11 +51,11 @@ Closes connection with the Pipeline.
 
 **BitPackReceiver(name: str)**
 
-This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically.
+This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically. The Receiver Object works on a Multi-Thread Object, so it will begin to cache the incoming data from the pipeline since its declaration inside its packet cache memory.
 
 **receive()**
 
-This method of the object receives the data from the Pipeline and returns it as a List.
+This method of the object retrieves the data from the packet cache memory and returns it as a List of Lists, where each of these Lists represents the packet that was sent over the pipeline.
 
 **open_connection()**
 
