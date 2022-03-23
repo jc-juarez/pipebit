@@ -57,7 +57,7 @@ class BitPackSender:
 
     def send_thread_function(self,data):
         # Sleep is Thread-Oriented. This will not slow down the main program but instead just this single thread for sending data thorugh the pipeline
-        time.sleep(0.001)   
+        time.sleep(0.005)   
         # Generate 16-character Transaction    
         transaction = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(16))
         binary_transaction = bytes(transaction + "\n", 'utf-8')
