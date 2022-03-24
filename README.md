@@ -68,7 +68,9 @@ Closes connection with the Pipeline.
 Sender / Receiver Example
 ==========
 
-For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also use a 'previous' value in **receiver.py** so we don't get the same value from the pipeline indefinitely.
+For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also check if the data received is not empty so we can display it.
+
+It is recommended to use the **time** library if you pretend to send big amounts of data sequentially as in a While (True) statement so the Queue of Packets to be sent does not become too big and consume too much memory. For instance, you could use time.sleep(0.1) and it would work just fine.
 
 Run both files parallelly, but first run the **sender.py** file so it creates the Pipeline (it will run in about 15 seconds to finish the for loop, run the other file before this time so you can appreciate the result) and then run the **receiver.py** file so it can extract the data coming from the Pipeline.
 
@@ -103,19 +105,13 @@ import pipebit
 # Defines Receiver that connects with the Pipeline named 'data_pipe'
 receiver = pipebit.BitPackReceiver("data_pipe")
 
-# Previous Data
-prev_data = []
-
-# Current Data
-data = []
-
 # Opens Receiver Connection with the Pipeline
 receiver.open_connection()
 
 # Infinite Loop that listens for incoming data from the pipeline and prints it out to the console excepting an empty data value
 while(True):
     data = receiver.receive()
-    if(len(data) and data != prev_data):
+    if(len(data)):
         print(data)
         prev_data = data
         
