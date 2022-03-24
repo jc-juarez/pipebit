@@ -113,7 +113,6 @@ while(True):
     data = receiver.receive()
     if(len(data)):
         print(data)
-        prev_data = data
         
 # Closes Receiver Connection with the Pipeline (Unreachable)
 receiver.close_connection()
