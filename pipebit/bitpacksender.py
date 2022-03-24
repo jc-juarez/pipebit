@@ -67,12 +67,17 @@ class BitPackSender:
         if(not self.pipeline_connection):
             print("\n<#> PipeBit Error: Pipeline Connection is closed.")
             return
-        time.sleep(0.01)
+        thread_code = random.randint(0,1000)
+        inter_thread = threading.Thread(target=self.inter_function, name="InterThread{0}".format(str(thread_code)), args=[data])
+        inter_thread.start()
+    
+    def inter_function(self,data):
+        time.sleep(0.4)
         self.send_packet_queue.append(data)
 
-    def send_thread_function(self,data):
+    def send_function(self,data):
         # Sleep is Thread-Oriented. This will not slow down the main program but instead just this single thread for sending data thorugh the pipeline
-        #time.sleep(0.0001)   
+        time.sleep(0.35)   
         # Generate 16-character Transaction    
         transaction = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(16))
         binary_transaction = bytes(transaction + "\n", 'utf-8')
@@ -90,8 +95,4 @@ class BitPackSender:
     def send_packet_queue_dispatcher(self,args):
         while True:
             while(len(self.send_packet_queue)):
-                thread_code = random.randint(0,1000)
-                send_thread = threading.Thread(target=self.send_thread_function, name="SendThread{0}".format(str(thread_code)), args=[self.send_packet_queue.popleft()])
-                send_thread.start()
-                while(send_thread.is_alive()):
-                    pass
+                self.send_function(self.send_packet_queue.popleft())
