@@ -35,7 +35,7 @@ This Model allows to safely transfer a data packet as a List, guaranteeing that 
 
 **Use this Model when:**
 
-- You need to transmit **important** and **small** amounts of data through the pipeline safely without losing any information, for instance a program for checking a system's Health or any other case when you need to transmit few and relevant information. This Model can be good for event-driven notifications, whenever your program catches an event you can sent information of this event through the Pipeline. It is important to mention that this Model takes more time to send data than the **Fast Pipeline** model.
+- You need to transmit **important** and **small** amounts of data through the pipeline safely without losing any information. This Model can be good for event-driven notifications, whenever your program catches an event you can sent information of this event through the Pipeline, for instance a program for checking a system's Health or any other case when you need to transmit few and relevant information. It is important to mention that this Model takes more time to send data than the **Fast Pipeline** model.
 
 **Do Not Use this Model when:**
 
