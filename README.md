@@ -1,6 +1,6 @@
 # PipeBit 🛸
 
-PipeBit is a Quick Pipeline Deployment System for Local Data Pipelines based on Multi-Threading in Python without having to reference any pipeline paths.
+PipeBit is a Quick Multi-Pipeline Deployment System for Local Data Pipelines based on Multi-Threading in Python without having to reference any pipeline paths.
 
 How to Install PipeBit
 ==========
