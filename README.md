@@ -80,21 +80,15 @@ The content of the files is the following:
 
 ```python
 import pipebit
-import time
 
-# Defines Sender that creates a Pipeline with name 'data_pipe', size 5 and no Override
-sender = pipebit.BitPackSender("data_pipe",5,False)
+# Defines SafeSender that creates a Pipeline with name 'data_pipe' and No Debugging Information on Console
+ss = pipebit.SafeSender("data_pipe",0)
 
-# Opens Sender Connection with the Pipeline
-sender.open_connection()
+# Iterates from 0 to 49 and sends the values from i, i + 1 ... i + 4 (size of 5)
+for i in range(50):
+    ss.send([i,i+1,i+2,i+3,i+4])
 
-# Iterates from 0 to 29 and sends the values from i, i + 1 ... i + 4 (size of 5), having an interruption interval between each of half a second
-for i in range(30):
-    sender.send([i,i+1,i+2,i+3,i+4])
-    time.sleep(0.5)
-    
-# Closes Sender Connection with the Pipeline
-sender.close_connection()
+print("Finished! All Packets have been safely sent. Waiting for Packet Queue Dispatcher to Finish...")
 ```
 
 - receiver.py
