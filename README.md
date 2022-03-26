@@ -39,7 +39,7 @@ This Model allows to safely transfer a data packet as a List, guaranteeing that 
 
 **Do Not Use this Model when:**
 
-- You need to transmit **big** amounts of data in a **fast** manner as this Model is lengthier to transmit data. You can still transmit big amounts of data with this Model but it will take more time to receive it all. **It is not recommended** to use this Model for this situations, but in case you decide to use it, add time.sleep() intervals between each data packet you send, as the Packet Queue may be overloaded with huge amounts of data and may cause a Memory Leak problem on your server.
+- You need to transmit **big** amounts of data in a **fast** manner as this Model is lengthier to transmit data. You can still transmit big amounts of data with this Model but it will take more time to receive it all. **It is not recommended** to use this Model in situations where data is sent sequentially indefinitely in a really short period of time (for instance a While True), but in case you decide to use it, be careful with the amounts of data you send and add time.sleep() intervals between each data packet you send, as the Packet Queue may be overloaded with huge amounts of data and may cause a Memory Leak problem on your server.
 
 **BitPackSender(name: str, size: int, override: boolean)**
 
