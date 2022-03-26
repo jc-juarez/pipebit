@@ -6,5 +6,5 @@
 # All rights reserved.
 # -------------------------------
 
-from .bitpacksender import BitPackSender
-from .bitpackreceiver import BitPackReceiver
+from .safesender import SafeSender
+from .safereceiver import SafeReceiver

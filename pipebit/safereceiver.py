@@ -12,23 +12,16 @@ import inspect
 import threading
 import random
 from collections import deque
+from xmlrpc.client import Boolean
 
-def blocks(files, size=65536):
-    while True:
-        b = files.read(size)
-        if not b: break
-        yield b
-
-class BitPackReceiver:
+class SafeReceiver:
 
     # Standard Attributes
 
-    pipeline_packet_size = 0
     pipeline_name = ""
     pipeline_path = ""
-    pipeline_connection = False
     pipeline_data_delimeter = "_%_"
-    pipeline_packet_delimeter = "/*/"
+    pipeline_debugging_option = True
 
     # Memory & Caching Attributes
 
@@ -36,7 +29,7 @@ class BitPackReceiver:
     packets_cache_memory = []
     current_transaction = ""
 
-    def __init__(self, _name):
+    def __init__(self, _name, _debugging_option):
 
         # Standard Attributes Initialization
 
@@ -60,10 +53,10 @@ class BitPackReceiver:
             for line in info_file:
                 params.append(line.rstrip('\n'))
         self.pipeline_name = str(params[0])
-        self.pipeline_packet_size = int(params[1])
         self.pipeline_data_delimeter = str(params[2])
-        self.pipeline_packet_delimeter = str(params[3])
-        self.pipeline_path = str(params[4])
+        self.pipeline_path = str(params[3])
+
+        self.pipeline_debugging_option = _debugging_option
 
         # Packet Catcher Thread Initialization
 
@@ -75,13 +68,7 @@ class BitPackReceiver:
         packet_queue_dispatcher_thread = threading.Thread(target=self.packet_queue_dispatcher, name="QueueDispatcher", args=[0])
         packet_queue_dispatcher_thread.start()
 
-        print("\n<+> PipeBit Info: The BitPack Receiver Pipeline '{0}' has been created succesfully.".format(str(self.pipeline_name)))
-
-    def open_connection(self):
-        self.pipeline_connection = True
-
-    def close_connection(self):
-        self.pipeline_connection = False
+        if(self.pipeline_debugging_option): print("\n<+> PipeBit Info: The BitPack Receiver Pipeline '{0}' has been created succesfully.".format(str(self.pipeline_name)))
 
     def receive(self):
         aux = self.packets_cache_memory
@@ -89,27 +76,26 @@ class BitPackReceiver:
         return aux
 
     # Decoding Engine for Packet Threads
-    def decoding_engine_entrance(self,args):
-        packet = args.decode("utf-8").rstrip('\n')
-        res = packet.split("_%_")
-        res.pop()
-        self.packets_cache_memory.append(res)
+    def decoding_engine_entrance(self,args): self.packets_cache_memory.append(args.split("_%_"))
 
     # Packet Catcher Thread
     def packet_catcher(self,args):
+        pipeline_path = self.pipeline_path
         while True:
             try:
                 with open(self.pipeline_path, "rb") as binary_file:
-                    file_lines = binary_file.readlines()
-                    number_lines = len(file_lines)
-                    if(number_lines >= 3):
-                        packet_transaction = file_lines[0].decode("utf-8").rstrip('\n')
-                        if(packet_transaction != self.current_transaction):
-                            self.current_transaction = packet_transaction
-                            self.packet_queue.append(file_lines[1])
+                    packet_transaction = ""
+                    for line in binary_file:
+                        packet_transaction = line
+                        break
+                    if(packet_transaction != current_transaction):
+                        current_transaction = packet_transaction
+                        packet = ""
+                        for line in binary_file:
+                            packet = line
+                        self.packet_queue.append(packet)
             except:
                 print("\n<#> PipeBit Error: Error on Catching Data from Pipeline '{0}'.".format(self.pipeline_name))
-
 
     # Safe Dispatcher Function. All packets that make it uo to here are already safely received
     def packet_queue_dispatcher(self,args):
