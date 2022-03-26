@@ -41,48 +41,30 @@ This Model allows to safely transfer a data packet as a List, guaranteeing that 
 
 - You need to transmit **big** amounts of data in a **fast** manner as this Model is lengthier to transmit data. You can still transmit big amounts of data with this Model but it will take more time to receive it all. **It is not recommended** to use this Model in situations where data is sent sequentially indefinitely in a really short period of time (for instance a While True), but in case you decide to use it, be careful with the amounts of data you send and add time.sleep() intervals between each data packet you send, as the Packet Queue may be overloaded with huge amounts of data and may cause a Memory Leak problem on your server.
 
-**BitPackSender(name: str, size: int, override: boolean)**
+**SafeSender(name: str, debugging_option: int)**
 
-This is the Object that creates the pipeline and takes in 3 parameters: the name the pipeline will have, the size for the packet of data it will transfer, and its override option. This last option is a Boolean that can be set to True in the case that if the pipeline already exists, we override it (change size and clean its previous buffer value). If set to False it will keep its previous buffer value until changed.
+This is the Object that creates the pipeline and takes in  parameters: the name the pipeline will have and the debugging option; if this last one is set to 1, PipeBt will show Debugging Information to the Console, otherwise if it is set to  it will not. PipeBit Errors will still be shown regardless of this option.
 
 **send(data: List)**
 
-This method releases a single thread that sends a List of the specified size of the packet.
+This method sends a List as a Packet through the Pipeline.
 
-**open_connection()**
+**SafeReceiver(name: str, debugging_option: int)**
 
-Opens connection with the Pipeline.
-
-**close_connection()**
-
-Closes connection with the Pipeline.
-
-## BitPackReceiver
-
-**BitPackReceiver(name: str)**
-
-This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. No need to specify anything more, if the pipeline exists it will link it automatically. The Receiver Object works on a Multi-Thread Model, so it will begin to cache the incoming data from the pipeline since its declaration inside its packet cache memory.
+This Object only takes 1 parameter which is the name of the pipeline that is assumed to have already been created by a BitPackSender in the past. The Receiver works in an asynchronous way, as it starts to catch and save packets from the moment it is instantiated. No need to specify anything more, if the pipeline exists it will link it automatically. The Receiver Object works on a Multi-Thread Model, so it will begin to cache the incoming data from the pipeline since its declaration inside its packet cache memory.
 
 **receive()**
 
-This method of the object retrieves the data from the packet cache memory and returns it as a List of Lists, where each of these Lists represents the packet that was sent over the pipeline.
-
-**open_connection()**
-
-Opens connection with the Pipeline.
-
-**close_connection()**
-
-Closes connection with the Pipeline.
+This method of the object flushes the data from the packet cache memory and returns it as a List of Lists, where each of these Lists represents a packet that was sent over the pipeline since the Receiver first established a connection with the Pipeline.
 
 Sender / Receiver Example
 ==========
 
-For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we use the **time** library to make the process a little slower so it can be visible, but there is no need to use it. We also check if the data received is not empty so we can display it.
+For this example create two Python Files: **sender.py** and **receiver.py** and place them wherever you want, they don't need to be in the same directory nor anything. Here we check if the data received is not empty so we can display it.
 
 It is recommended to use the **time** library if you pretend to send big amounts of data sequentially as in a While (True) statement so the Queue of Packets to be sent does not become too big and consume too much memory. For instance, you could use time.sleep(0.1) and it would work just fine.
 
-Run both files parallelly, but first run the **sender.py** file so it creates the Pipeline (it will run in about 15 seconds to finish the for loop, run the other file before this time so you can appreciate the result) and then run the **receiver.py** file so it can extract the data coming from the Pipeline.
+Run both files parallelly, but first run the **sender.py** file so it creates the Pipeline (it will run and send all packets to the dispatcher and then the program will just wait for the dispatcher to finish) and then run the **receiver.py** file so it can extract the data coming from the Pipeline.
 
 The content of the files is the following:
 
