@@ -81,8 +81,8 @@ The content of the files is the following:
 ```python
 import pipebit
 
-# Defines SafeSender that creates a Pipeline with name 'data_pipe' and No Debugging Information on Console
-ss = pipebit.SafeSender("data_pipe",0)
+# Defines SafeSender that creates a Pipeline with name 'data_pipe' with Debugging Information to Console
+ss = pipebit.SafeSender("data_pipe",1)
 
 # Iterates from 0 to 49 and sends the values from i, i + 1 ... i + 4 (size of 5)
 for i in range(50):
