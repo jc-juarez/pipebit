@@ -96,20 +96,14 @@ print("Finished! All Packets have been safely sent. Waiting for Packet Queue Dis
 ```python
 import pipebit
 
-# Defines Receiver that connects with the Pipeline named 'data_pipe'
-receiver = pipebit.BitPackReceiver("data_pipe")
-
-# Opens Receiver Connection with the Pipeline
-receiver.open_connection()
+# Defines SafeReceiver that connects with the Pipeline named 'data_pipe' with No Debugging Information to Console
+sr = pipebit.SafeReceiver("data_pipe",0)
 
 # Infinite Loop that listens for incoming data from the pipeline and prints it out to the console excepting an empty data value
 while(True):
-    data = receiver.receive()
+    data = sr.receive()
     if(len(data)):
         print(data)
-        
-# Closes Receiver Connection with the Pipeline (Unreachable)
-receiver.close_connection()
 ```
 
 Here is another example of **sender.py** using Tkinter to send the amount of times a Button is pressed, using the same **receiver.py** file as before and the same pipeline:
@@ -124,10 +118,8 @@ i = 1
 # Sends the Data to the Pipeline everytime the Button is pressed
 def pressed_button(event):
     global i
-    sender.open_connection()
-    sender.send(["Pressed the button {0} times!".format(i)])
-    i += 1
-    sender.close_connection()  
+    ss.send(["Pressed the button {0} times!".format(i)])
+    i += 1  
 
 # Create Button
 widget = Button(None, text = "Send Data")
@@ -135,7 +127,7 @@ widget.pack()
 widget.bind('<Button-1>', pressed_button)
 
 # Create Clicks Pipeline
-sender = pipebit.BitPackSender("data_pipe",1,True)
+ss = pipebit.SafeSender("data_pipe",0)
 
 # Tkinter Mainloop
 widget.mainloop()
