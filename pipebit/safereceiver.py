@@ -21,7 +21,8 @@ class SafeReceiver:
     pipeline_name = ""
     pipeline_path = ""
     pipeline_data_delimeter = "_%_"
-    pipeline_debugging_option = True
+    pipeline_debugging_option = 1
+    pipeline_thread = ""
 
     # Memory & Caching Attributes
 
@@ -31,10 +32,17 @@ class SafeReceiver:
 
     def __init__(self, _name, _debugging_option):
 
+        # Invocation Thread Catching
+
+        self.pipeline_thread = threading.currentThread()
+
         # Standard Attributes Initialization
 
         if(_name == ""):
             print("\n<#> PipeBit Error: Pipeline Name cannot be empty.")
+            sys.exit(1)
+        if(_debugging_option != 1 and _debugging_option != 0):
+            print("\n<#> PipeBit Error: Debugging Option must be either 1 or 0.\n")
             sys.exit(1)
         pipebit_dir = str(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))))
         pipebit_path = repr(str(pipebit_dir))[1:-1]
@@ -76,20 +84,26 @@ class SafeReceiver:
         return aux
 
     # Decoding Engine for Packet Threads
-    def decoding_engine_entrance(self,args): self.packets_cache_memory.append(args.split("_%_"))
+    def decoding_engine_entrance(self,args): 
+        if(type(args) != str): 
+            packet = args.decode("utf-8").rstrip('\n')
+        else:
+            packet = args
+        res = packet.split("_%_")
+        res.pop()
+        self.packets_cache_memory.append(res)
 
     # Packet Catcher Thread
     def packet_catcher(self,args):
-        pipeline_path = self.pipeline_path
-        while True:
+        while self.pipeline_thread.is_alive():
             try:
                 with open(self.pipeline_path, "rb") as binary_file:
                     packet_transaction = ""
                     for line in binary_file:
                         packet_transaction = line
                         break
-                    if(packet_transaction != current_transaction):
-                        current_transaction = packet_transaction
+                    if(packet_transaction != self.current_transaction):
+                        self.current_transaction = packet_transaction
                         packet = ""
                         for line in binary_file:
                             packet = line
@@ -99,7 +113,7 @@ class SafeReceiver:
 
     # Safe Dispatcher Function. All packets that make it uo to here are already safely received
     def packet_queue_dispatcher(self,args):
-        while True:
+        while self.pipeline_thread.is_alive() or len(self.packet_queue):
             while(len(self.packet_queue)):
                 thread_code = random.randint(0,1000)
                 packet_thread = threading.Thread(target=self.decoding_engine_entrance, name="DecodingEngineEntrance{0}".format(str(thread_code)), args=[self.packet_queue.popleft()])

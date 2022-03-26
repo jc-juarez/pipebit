@@ -23,12 +23,17 @@ class SafeSender:
     pipeline_path = ""
     pipeline_data_delimeter = "_%_"
     pipeline_debugging_option = 1
+    pipeline_thread = ""
 
     # Memory & Caching Attributes
 
     send_packet_queue = deque()
 
     def __init__(self, _name, _debugging_option):
+
+        # Invocation Thread Catching
+
+        self.pipeline_thread = threading.currentThread()
 
         # Standard Attributes Initilization
 
@@ -53,7 +58,7 @@ class SafeSender:
 
     def send_function(self,data):
         # Sleep is Thread-Oriented. This will not slow down the main program but instead just this single thread for sending data through the pipeline
-        time.sleep(0.4)   
+        time.sleep(0.3)   
         # Generate 16-character Transaction    
         transaction = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(16))
         packet = str(transaction) + "\n"
@@ -64,6 +69,6 @@ class SafeSender:
             binary_file.write(binary_packet)
 
     def send_packet_queue_dispatcher(self,args):
-        while True:
+        while self.pipeline_thread.is_alive() or len(self.send_packet_queue):
             while(len(self.send_packet_queue)):
                 self.send_function(self.send_packet_queue.popleft())

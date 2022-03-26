@@ -8,7 +8,7 @@
 
 from setuptools import setup, find_packages
 
-VERSION = '0.0.31'
+VERSION = '0.0.40'
 DESCRIPTION = 'PipeBit'
 LONG_DESCRIPTION = 'PipeBit is a Quick Pipeline Management System for Local Data Pipelines.'
 
