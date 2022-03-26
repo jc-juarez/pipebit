@@ -25,11 +25,21 @@ pip install pipebit
 How to Run PipeBit
 ==========
 
-PipeBit works on a Sender / Receiver model using Lists for both cases. Currently, PipeBit supports one Pipeline Model: **BitPack**. This Model allows to transfer a data packet with a predetermined packet size that refreshes the pipeline buffer every time a new packet is sent. 
+PipeBit works on a Sender / Receiver model using Lists for both cases. Currently, PipeBit supports two Pipeline Models: **Safe Pipeline** and **Fast Pipeline**.
 
 PipeBit can be used as a Multi-Pipeline system, having one Sender serving data over a specific Pipeline and having multiple Receivers extracting data from such Pipeline, allowing to create interesting data  transfer architectures.
 
-## BitPackSender
+## Safe Pipeline
+
+This Model allows to safely transfer a data packet as a List, guaranteeing that it will be received by a Receiver if this last one is listening from the Pipeline. This model works on a Multi-Threading scheme having a Packet Queue on both sides so all packets are safey sent and received. 
+
+**Use this Model when:**
+
+- You need to transmit **important** and **small** amounts of data through the pipeline safely without losing any information, for instance a program for checking a system's Health or any other case when you need to transmit few and relevant information. This Model can be good for event-driven notifications, whenever your program catches an event you can sent information of this event through the Pipeline. It is important to mention that this Model takes more time to send data than the **Fast Pipeline** model.
+
+**Do Not Use this Model when:**
+
+- You need to transmit **huge** amounts of data in a **fast** manner. This Model is lengthier to transmit data. You can still transmit big amounts of data with this Model but it will take more time to receive it all. It is not recommended to use this Model for this situations, but in case you decide to use it, add time.sleep() intervales between each data packet you send, as the Packet Queue may be overloaded with huge amounts of data and may cause a Memory Leak on your server.
 
 **BitPackSender(name: str, size: int, override: boolean)**
 
