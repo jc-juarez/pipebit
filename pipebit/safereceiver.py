@@ -102,7 +102,7 @@ class SafeReceiver:
                     for line in binary_file:
                         packet_transaction = line
                         break
-                    if(packet_transaction != self.current_transaction):
+                    if(packet_transaction != "" and packet_transaction != self.current_transaction):
                         self.current_transaction = packet_transaction
                         packet = ""
                         for line in binary_file:
