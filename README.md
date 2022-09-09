@@ -31,7 +31,7 @@ PipeBit can be used as a Multi-Pipeline system, having one Sender serving data o
 
 ## Safe Pipeline
 
-This Model allows to safely transfer a data packet as a List, guaranteeing that it will be received by a Receiver if this last one is listening from the Pipeline. This model works on a Multi-Threading scheme having a Packet Queue on both sides so all packets are safey sent and received. 
+This Model allows to safely transfer a data packet as a List, guaranteeing that it will be received by a Receiver if this last one is listening from the Pipeline. This model works on a Multi-Threading scheme having a Packet Queue on both sides so all packets are safely sent and received. 
 
 **Use this Model when:**
 
